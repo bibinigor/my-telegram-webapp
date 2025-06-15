@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Стильный WebApp</title>
+    <title>🍄 Волшебный WebApp</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* Глобальные стили */
+        /* Общие стили */
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             padding: 0;
             min-height: 100vh;
@@ -16,146 +16,114 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: white;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
             text-align: center;
             overflow: hidden;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Контейнер */
-        .container {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            width: 85%;
+        /* Контейнеры страниц */
+        .page {
+            display: none;
+            width: 90%;
             max-width: 400px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        .active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
         }
 
-        /* Стили для кнопок */
-        .btn {
-            position: relative;
-            display: inline-block;
-            padding: 14px 28px;
-            margin: 10px 0;
-            width: 100%;
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            text-transform: uppercase;
-            border: none;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        /* Разные цвета для кнопок */
-        .btn-primary {
-            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(45deg, #4ECDC4, #556270);
-        }
-
-        .btn-dark {
-            background: linear-gradient(45deg, #2C3E50, #4CA1AF);
-        }
-
-        /* Анимация появления */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .container > * {
-            animation: fadeIn 0.6s ease-out forwards;
+        /* Кнопки */
+        .btn {
+            background: #ff9a9e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 10px 0;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
         }
 
-        .btn { animation-delay: 0.2s; }
-        p { animation-delay: 0.4s; }
+        .btn:hover {
+            background: #fad0c4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-home {
+            background: #a18cd1;
+        }
+
+        /* Изображение домика */
+        .house-img {
+            width: 100%;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #6a5acd;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Добро пожаловать в ✨ MagicBot!</h1>
+    <!-- Главная страница -->
+    <div id="mainPage" class="page active">
+        <h1>🌷 Добро пожаловать в сад!</h1>
+        <p>Нажмите на кнопку, чтобы найти домик:</p>
         
-        <button class="btn btn-primary" onclick="sendAction('🎮 Играть')">
-            🎮 Начать игру
+        <button class="btn" onclick="showPage('housePage')">
+            🏡 Здесь домик
         </button>
         
-        <button class="btn btn-secondary" onclick="sendAction('⚙ Настройки')">
-            ⚙ Настройки профиля
+        <button class="btn" onclick="tg.sendData('Нажата другая кнопка'); tg.close()">
+            🌻 Просто кнопка
         </button>
-        
-        <button class="btn btn-dark" onclick="sendAction('💎 Премиум')">
-            💎 Премиум-доступ
+    </div>
+
+    <!-- Страница с домиком -->
+    <div id="housePage" class="page">
+        <h1>🏡 Вот ваш домик!</h1>
+        <img src="https://i.imgur.com/5Rz2KQq.png" alt="Домик в лесу" class="house-img">
+        <p>Красивый домик с красной крышей среди деревьев.</p>
+        <button class="btn btn-home" onclick="showPage('mainPage')">
+            ← Вернуться назад
         </button>
-        
-        <p>Нажмите любую кнопку для действия</p>
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand(); // На весь экран
-        
-        // Отправка действия в бота
-        function sendAction(action) {
-            tg.sendData(JSON.stringify({
-                action: action,
-                time: new Date().toLocaleTimeString()
-            }));
-            tg.close();
+
+        // Переключение между страницами
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
         }
-        
-        // Можно добавить больше интерактивности
+
+        // Добавим кнопку "Назад" в Telegram
         tg.BackButton.show();
         tg.BackButton.onClick(() => {
-            tg.close();
+            showPage('mainPage');
+            tg.BackButton.hide();
         });
     </script>
 </body>
