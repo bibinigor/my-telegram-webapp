@@ -3,45 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой крутой WebApp</title>
+    <title>✨ Стильный WebApp</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        /* Глобальные стили */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #000000);
-            padding: 20px;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
             text-align: center;
+            overflow: hidden;
         }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Контейнер */
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            width: 85%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Стили для кнопок */
         .btn {
-            background: var(--tg-theme-button-color, #50a8eb);
-            color: var(--tg-theme-button-text-color, #ffffff);
+            position: relative;
+            display: inline-block;
+            padding: 14px 28px;
+            margin: 10px 0;
+            width: 100%;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
             border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 16px;
-            margin: 10px;
-            width: 80%;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             cursor: pointer;
+            transition: all 0.3s ease;
         }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Разные цвета для кнопок */
+        .btn-primary {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #4ECDC4, #556270);
+        }
+
+        .btn-dark {
+            background: linear-gradient(45deg, #2C3E50, #4CA1AF);
+        }
+
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container > * {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .btn { animation-delay: 0.2s; }
+        p { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
-    <h1>🍕 Пицца-бот</h1>
-    <p>Выберите действие:</p>
-    
-    <button class="btn" onclick="sendOrder('Пепперони')">Заказать пепперони</button>
-    <button class="btn" onclick="sendOrder('Маргариту')">Заказать маргариту</button>
-    <button class="btn" onclick="tg.close()">Отмена</button>
+    <div class="container">
+        <h1>Добро пожаловать в ✨ MagicBot!</h1>
+        
+        <button class="btn btn-primary" onclick="sendAction('🎮 Играть')">
+            🎮 Начать игру
+        </button>
+        
+        <button class="btn btn-secondary" onclick="sendAction('⚙ Настройки')">
+            ⚙ Настройки профиля
+        </button>
+        
+        <button class="btn btn-dark" onclick="sendAction('💎 Премиум')">
+            💎 Премиум-доступ
+        </button>
+        
+        <p>Нажмите любую кнопку для действия</p>
+    </div>
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.expand();
+        tg.expand(); // На весь экран
         
-        function sendOrder(pizza) {
-            tg.sendData(`Заказ: ${pizza}`);
+        // Отправка действия в бота
+        function sendAction(action) {
+            tg.sendData(JSON.stringify({
+                action: action,
+                time: new Date().toLocaleTimeString()
+            }));
             tg.close();
         }
+        
+        // Можно добавить больше интерактивности
+        tg.BackButton.show();
+        tg.BackButton.onClick(() => {
+            tg.close();
+        });
     </script>
 </body>
 </html>
