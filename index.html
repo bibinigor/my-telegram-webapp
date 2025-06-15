@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой WebApp</title>
+    <title>Мой крутой WebApp</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--tg-theme-bg-color, #ffffff);
             color: var(--tg-theme-text-color, #000000);
             padding: 20px;
             text-align: center;
         }
-        button {
+        .btn {
             background: var(--tg-theme-button-color, #50a8eb);
             color: var(--tg-theme-button-text-color, #ffffff);
             border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 12px 24px;
+            border-radius: 12px;
             font-size: 16px;
+            margin: 10px;
+            width: 80%;
             cursor: pointer;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Привет! 👋</h1>
-    <p>Это WebApp внутри Telegram!</p>
-    <button onclick="sendData()">Отправить "Привет" в бота</button>
+    <h1>🍕 Пицца-бот</h1>
+    <p>Выберите действие:</p>
+    
+    <button class="btn" onclick="sendOrder('Пепперони')">Заказать пепперони</button>
+    <button class="btn" onclick="sendOrder('Маргариту')">Заказать маргариту</button>
+    <button class="btn" onclick="tg.close()">Отмена</button>
 
     <script>
         const tg = window.Telegram.WebApp;
-        tg.expand();  // Открыть на весь экран
-
-        function sendData() {
-            tg.sendData("Привет, бот!");  // Отправляем текст
-            tg.close();  // Закрываем WebApp
+        tg.expand();
+        
+        function sendOrder(pizza) {
+            tg.sendData(`Заказ: ${pizza}`);
+            tg.close();
         }
     </script>
 </body>
